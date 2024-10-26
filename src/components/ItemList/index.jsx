@@ -2,27 +2,32 @@ import { EmptyView } from "./EmptyView"
 import { Sorting } from "./Sorting"
 import { Item } from "./Item"
 
-export const items = [
-    {
-        id: 1,
-        name: "good mood",
-        packed: true,
-    },
-    {
-        id: 2,
-        name: "passport",
-        packed: false,
-    },
-    {
-        id: 3,
-        name: "phone charger",
-        packed: false,
-    },
-]
+export function ItemList({ itemList, onSetItemList }) {
+    const toggleItem = itemIdToggle => {
+        const newItems = itemList.map((item) => {
+            if (item.id === itemIdToggle) {
+                return { ...item, packed: !item.packed }
+            } else {
+                return item
+            }
+        })
+        onSetItemList(newItems)
+    }
 
-export function ItemList() {
-    const itemList = items.map(item => {
-        return <Item key={item.id} item={item} />
+    const deleteItem = itemIdDelete => {
+        const newItems = itemList.filter(item => item.id !== itemIdDelete)
+        onSetItemList(newItems)
+    }
+
+    const items = itemList.map((item) => {
+        return (
+            <Item
+                key={item.id}
+                item={item}
+                onToggleItem={toggleItem}
+                onDeleteItem={deleteItem}
+            />
+        )
     })
 
     return (
@@ -31,7 +36,7 @@ export function ItemList() {
 
             {items.length > 0 ? <Sorting /> : null}
 
-            {itemList}
+            {items}
         </ul>
     )
 }

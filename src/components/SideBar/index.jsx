@@ -1,12 +1,12 @@
 import { AddItemForm } from "./AddItemForm"
 import { ButtonGroup } from "./ButtonGroup"
 
-export function SideBar() {
+export function SideBar({ itemList, onSetItemList }) {
     return (
         <div className="sidebar">
-            <AddItemForm />
+            <AddItemForm itemList={itemList} onSetItemList={onSetItemList} />
 
-            <ButtonGroup />
+            <ButtonGroup itemList={itemList} onSetItemList={onSetItemList} />
         </div>
     )
 }

@@ -1,12 +1,24 @@
-export function Item({ item }) {
+export function Item({ item, onToggleItem, onDeleteItem }) {
+    const handleToggleItem = () => {
+        onToggleItem(item.id)
+    }
+
+    const handleDeleteItem = () => {
+        onDeleteItem(item.id)
+    }
+
     return (
         <li className="item">
             <label>
-                <input checked={item.packed} type="checkbox" />
+                <input
+                    onChange={handleToggleItem}
+                    checked={item.packed}
+                    type="checkbox"
+                />
                 {item.name}
             </label>
 
-            <button>❌</button>
+            <button onClick={handleDeleteItem}>❌</button>
         </li>
     )
 }
